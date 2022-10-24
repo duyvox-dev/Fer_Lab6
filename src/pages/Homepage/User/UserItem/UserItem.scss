@@ -1,0 +1,40 @@
+.user {
+    &__item {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem;
+        border-bottom: 1px solid #3e3e3e52;
+    }
+
+    &__input {
+        flex: 1;
+        div {
+            width: 100%;
+        }
+        input {
+            width: 100%;
+        }
+    }
+    &__info {
+        width: 150px;
+        max-width: 150px;
+        padding: 0 1rem;
+        h5 {
+            margin: 0;
+            max-width: 100%;
+        }
+        p {
+            margin: 0;
+            color: gray;
+        }
+    }
+    &__action {
+        display: flex;
+        align-items: center;
+    }
+    &__delete {
+        font-size: 40px;
+        color: rgba(255, 0, 0, 0.62);
+        cursor: pointer;
+    }
+}
