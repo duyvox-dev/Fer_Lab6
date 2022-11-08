@@ -9,17 +9,20 @@ import {
 } from "react-materialize";
 import "./Contact.scss";
 import * as Yup from "yup";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import useModal from "../../hooks/useModal";
-import ContactModal from "./ContactModal/ContactModal";
-import { useState } from "react";
+// import ContactModal from "./ContactModal/ContactModal";
+import _ from "lodash";
 const myInputComponent = (props) => {
     return <TextInput type="text" {...props}></TextInput>;
 };
 const myTextAreaComponent = (props) => {
     return <Textarea type="text" {...props}></Textarea>;
 };
-export default function Contact() {
+export default function Contact({
+    toggleModal = () => {},
+    handleSubmit = () => {},
+}) {
     const validationSchema = Yup.object().shape({
         name: Yup.string().required("Required."),
         email: Yup.string()
@@ -41,41 +44,31 @@ export default function Contact() {
         phone: "",
         message: "",
     };
-    const { modalVisible, toggleModal } = useModal();
-    const [contactData, setContactData] = useState();
-    useEffect(() => {
-        document.title = "Contact Us";
-    }, []);
-    const handleSubmit = (contact) => {
-        // e.preventDefault();
-        setContactData(contact);
-        toggleModal();
-    };
-
     return (
         <>
-            <ContactModal
+            {/* <ContactModal
                 toggleModal={toggleModal}
                 contactData={contactData}
                 isOpen={modalVisible}
-            ></ContactModal>
+            ></ContactModal> */}
             <Container className="contact-container">
-                <h3>Contact Us</h3>
                 <div>
                     <Formik
                         initialValues={initialFormValue}
                         validationSchema={validationSchema}
+                        validateOnChange={true}
                         onSubmit={(values, actions) => {
                             // console.log(values);
                             handleSubmit(values);
+                            toggleModal();
                             // handleAddNewUser(values);
-                            actions.resetForm({
-                                values: initialFormValue,
-                            });
+                            // actions.resetForm({
+                            //     values: initialFormValue,
+                            // });
                             // same shape as initial values
                         }}
                     >
-                        {({ errors, touched }) => (
+                        {({ errors, touched, isValid }) => (
                             <Form>
                                 <Field
                                     name="name"
@@ -117,15 +110,17 @@ export default function Contact() {
                                         {errors.message}
                                     </p>
                                 ) : null}
-                                <Button
-                                    className="blue darken-1"
-                                    large
-                                    node="button"
-                                    waves="light"
-                                >
-                                    Submit
-                                    <Icon right>send</Icon>
-                                </Button>
+                                <div>
+                                    <Button
+                                        className="blue darken-1"
+                                        node="button"
+                                        waves="light"
+                                        disabled={!isValid}
+                                    >
+                                        Submit
+                                        <Icon right>done_all</Icon>
+                                    </Button>
+                                </div>
                             </Form>
                         )}
                     </Formik>

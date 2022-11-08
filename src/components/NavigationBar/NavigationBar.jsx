@@ -9,7 +9,7 @@ export default function NavigationBar() {
                 className="blue darken-1"
                 brand={
                     <Link className="brand-logo" to="/">
-                        User Management
+                        Contact Management
                     </Link>
                 }
             >
@@ -20,13 +20,13 @@ export default function NavigationBar() {
                             <span>Home</span>
                         </Link>
                     </li>
-
+                    {/* 
                     <li>
                         <Link to="/contact">
                             <Icon left>contacts</Icon>
                             <span>Contacts</span>
                         </Link>
-                    </li>
+                    </li> */}
                 </ul>
             </Navbar>
         </>
